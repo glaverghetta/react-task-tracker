@@ -34,8 +34,16 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  /*
+  // Delete all tasks
+  const deleteAll = () => {
+    setTasks([])
+  }
+  */
+
   // Toggle reminder status
   const toggleReminder = (id) => {
+    // Find the task with matching id and toggle its reminder
     setTasks(tasks.map((task) => task.id === id ? 
       {...task, reminder: !task.reminder} :
       task))
@@ -43,9 +51,10 @@ function App() {
 
   return (
     <div className="container">
-      <h1></h1>
-        <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-        {showAddTask && <AddTask onAdd={addTask} />}
+        <Header onAdd={() => setShowAddTask(!showAddTask)} 
+                onDeleteAll ={() => setTasks([])}
+                showAdd={showAddTask} />
+        {showAddTask && <AddTask onAdd={addTask} />} 
         {tasks.length > 0 ? 
           <Tasks tasks={tasks} onDelete={deleteTask}
                                onToggle={toggleReminder} /> :
